@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build Android APK
+      - name: Build APK
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -28,3 +28,4 @@ jobs:
         with:
           name: AFC27-Android-APK
           path: build/Android/*.apk
+          if-no-files-found: error

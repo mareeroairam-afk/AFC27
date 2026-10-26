@@ -1,0 +1,30 @@
+name: Build AFC 27 Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Android APK
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: Android
+          buildsPath: build
+          buildName: AFC27
+          androidAppBundle: false
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AFC27-Android-APK
+          path: build/Android/*.apk
